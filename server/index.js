@@ -1,8 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
+
 const port = 3500;
 
-require('dotenv').config();
+
 
 app.get('/', (req, res) => {
     return res.send('<h1>Hello From Server</h1>')
