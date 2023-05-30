@@ -131,7 +131,7 @@ const deleteUser = (req, res) => {
 const changeUserStatus = async (req, res) => {
   // atyare khali change karai de and pachi condition mukvani che ke admin check karu pela and admin hoy to j change kari shake
   try {
-    const user = await User.findById(req.body.userId);
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({
         message: "User not found",
