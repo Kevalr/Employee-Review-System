@@ -1,56 +1,63 @@
-import React, { useRef, useState } from "react";
-import { useCreateUser } from "../hooks/users";
+import React, { useRef, useState, useEffect } from "react";
+import { useCreateUser, useUpdateUser } from "../hooks/users";
 import { invalidateQuery } from "../config/react-query-client";
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
 
-const UserCreateUpdateForm = ({ isOpen, userDetails, onRequestClose }) => {
-    console.log("------------ ", userDetails)
-  const nameRef = useRef(userDetails?.name ?? "");
-  const deptRef = useRef(userDetails?.dept ?? "");
-  const emailRef = useRef(userDetails?.email ?? "");
-  const passwordRef = useRef("");
+const UserCreateUpdateForm = ({
+  isOpen,
+  userDetails,
+  onRequestClose,
+  setSelectedUser,
+}) => {
+  const nameRef = useRef("");
+  const deptRef = useRef("");
+  const emailRef = useRef("");
+  const passwordRef = useRef("hellllll");
   const [admin, setAdmin] = useState(userDetails?.isAdmin ?? false);
 
-  const { mutate: createUser, isLoading: isUserCreating } =
-    useCreateUser();
+  const { mutate: createUser, isLoading: isUserCreating } = useCreateUser();
+  const { mutate: updateUser, isLoading: isUserUpdating } = useUpdateUser();
 
-    const {register, } = useForm();
+  useEffect(() => {
+    if (userDetails) {
+      nameRef.current.value = userDetails.name;
+      deptRef.current.value = userDetails.dept;
+      emailRef.current.value = userDetails.email;
+      setAdmin(userDetails.isAdmin);
+    }
+  }, [userDetails]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      nameRef.current.value,
-      deptRef.current.value,
-      emailRef.current.value,
-      passwordRef.current.value,
-      admin
-    );
 
     let payload = {
-      name: nameRef.current.value,
-      dept: deptRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
+      name: nameRef.current?.value,
+      dept: deptRef.current?.value,
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
       isAdmin: admin,
     };
 
-    if(userDetails?._id) {
-        // updateUser({...payload, id: userDetails._id}, {
-        //     onSuccess: () => {
-        //       invalidateQuery(["users"]);
-        //       toast.success("User Updated Successfully");
-        //       navigate("/dashboard");
-        //     }
-        // })
+    if (userDetails?._id) {
+      updateUser(
+        { ...payload, password: userDetails.password, id: userDetails._id },
+        {
+          onSuccess: () => {
+            invalidateQuery(["users"]);
+            toast.success("User Updated Successfully");
+            onRequestClose();
+            setSelectedUser(null);
+          },
+        }
+      );
     } else {
-        createUser(payload, {
-            onSuccess: () => {
-              invalidateQuery(["users"]);
-              toast.success("User Creating Successfully");
-              onRequestClose();
-            },
-          });
+      createUser(payload, {
+        onSuccess: () => {
+          invalidateQuery(["users"]);
+          toast.success("User Creating Successfully");
+          onRequestClose();
+        },
+      });
     }
   };
 
@@ -60,7 +67,7 @@ const UserCreateUpdateForm = ({ isOpen, userDetails, onRequestClose }) => {
     >
       <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16 shadow-lg shadow-black bg-white rounded-xl w-1/2">
         <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white text-center">
-          {userDetails?._id ? "UPDATE" : "ADD" } USER
+          {userDetails?._id ? "UPDATE" : "ADD"} USER
         </h2>
         <form onSubmit={handleFormSubmit}>
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
@@ -117,23 +124,25 @@ const UserCreateUpdateForm = ({ isOpen, userDetails, onRequestClose }) => {
               />
             </div>
 
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="collage"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Password :
-              </label>
-              <input
-                type="text"
-                name="collage"
-                id="collage"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Type Student collage"
-                ref={passwordRef}
-                required
-              />
-            </div>
+            {!userDetails?._id && (
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="collage"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Password :
+                </label>
+                <input
+                  type="text"
+                  name="collage"
+                  id="collage"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Type Student collage"
+                  ref={passwordRef}
+                  required
+                />
+              </div>
+            )}
 
             <div className="sm:col-span-2">
               <div className="flex items-center">
@@ -170,9 +179,13 @@ const UserCreateUpdateForm = ({ isOpen, userDetails, onRequestClose }) => {
                 type="submit"
                 className="w-1/3 flex justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               >
-                {!isUserCreating ? 
-                  userDetails?._id ? "UPDATE USER" : "ADD USER"
-                 : (
+                {!isUserCreating && !isUserUpdating ? (
+                  userDetails?._id ? (
+                    "UPDATE USER"
+                  ) : (
+                    "ADD USER"
+                  )
+                ) : (
                   <svg
                     aria-hidden="true"
                     className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-white fill-blue-600"

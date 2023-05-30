@@ -12,6 +12,11 @@ const getAllUsers = () => axiosClient.get("/users");
 
 const toggleIsAdmin = (id) => axiosClient.put(`/users/changeUserStatus/${id}`)
 
+const updateUser = (payload) => {
+  console.log(payload);
+return axiosClient.put(`/users/update/${payload.id}`, payload)
+}
+
 const deleteUser = (id) => axiosClient.delete(`/users/${id}`)
 
-export { createUser, login, getAllUsers, toggleIsAdmin, deleteUser}
+export { createUser, login, getAllUsers, toggleIsAdmin, updateUser, deleteUser}

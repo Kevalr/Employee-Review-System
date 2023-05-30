@@ -19,6 +19,7 @@ const reviewController = require("../controller/reviewController");
 
 // user modules routes
 router.get("/users", userController.getUsersList);
+router.put("/users/update/:id", userController.updateUser);
 router.put("/users/changeUserStatus/:id", userController.changeUserStatus);
 router.delete("/users/:id", userController.deleteUser);
 

@@ -131,9 +131,10 @@ const Users = () => {
         </div>
       </div>
       {
-        isOpen && (
+        isOpen  &&(
             <UserCreateUpdateForm 
                 userDetails = {selectedUser}
+                setSelectedUser = {setSelectedUser}
                 onRequestClose={onRequestClose}
                 isOpen = {isOpen}
             />
