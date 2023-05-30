@@ -1,5 +1,6 @@
 import Login from "../components/login-form";
 import Register from "../components/sign-up-form";
+import Users from "../views/Users";
 
 
 const PathAuth = {
@@ -31,7 +32,7 @@ const Path = {
 
 const ProtectedRoutes = [
   {
-    element: <>User List</>,
+    element: <Users />,
     path: Path.Users,
     name: "Users",
     adminOnly: true,

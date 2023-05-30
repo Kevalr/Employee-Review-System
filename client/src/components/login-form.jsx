@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useLoginUser } from "../hooks/users";
 import { toast } from "react-toastify";
-import { setSession } from "../utils/helper";
+import { isAdmin, setSession } from "../utils/helper";
 
 export const Input = ({
   label,
@@ -55,7 +55,7 @@ const Login = () => {
         toast.success("User Login Succssfull");
         console.log(userData, response);
         setSession(response.data);
-        navigate("/");
+        navigate( isAdmin() ? "/users" : "/give-reviews");
       },
     });
   };

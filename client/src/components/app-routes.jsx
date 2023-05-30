@@ -4,6 +4,7 @@ import Path, { ProtectedRoutes, PublicRoutes } from "../constants/local-path";
 
 import { HomeRoute, ProtectedRoute } from "./app-layout/app-layout";
 import NotFound from "./not-found";
+import { isAdmin } from "../utils/helper";
 
 const AppRoutes = () => (
   <Routes>
@@ -14,9 +15,16 @@ const AppRoutes = () => (
     </Route>
 
     <Route element={<ProtectedRoute />}>
-      {ProtectedRoutes.map((itm) => (
-        <Route key={itm.path} element={itm.element} path={itm.path} />
-      ))}
+      {ProtectedRoutes.map((itm) => {
+        // itm.adminOnly ? (
+        //   isAdmin() ? (
+        //     <Route key={itm.path} element={itm.element} path={itm.path} />
+        //   ) : null
+        // ) : (
+        //   <Route key={itm.path} element={itm.element} path={itm.path} />
+        // );
+        return itm.adminOnly ? isAdmin() && <Route key={itm.path} element={itm.element} path={itm.path} /> : <Route key={itm.path} element={itm.element} path={itm.path} />
+      })}
     </Route>
 
     <Route element={<Navigate to={Path.Login} />} path="/" />

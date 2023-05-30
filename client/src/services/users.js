@@ -1,13 +1,17 @@
 import axiosClient from "../config/axios-client";
 
-const createUser = (payload) => {
-  console.log(payload, "----")
-  return axiosClient.post("/users/register", payload);
-};
+// authentication  methods
 
-const login = (payload) => { 
-  console.log(payload, "----login ----")
-  return axiosClient.post("/users/login", payload); 
-}
+const createUser = (payload) => axiosClient.post("/users/register", payload);
 
-export { createUser, login };
+const login = (payload) => axiosClient.post("/users/login", payload);
+
+// user module methods
+
+const getAllUsers = () => axiosClient.get("/users");
+
+const toggleIsAdmin = (id) => axiosClient.put(`/users/changeUserStatus/${id}`)
+
+const deleteUser = (id) => axiosClient.delete(`/users/${id}`)
+
+export { createUser, login, getAllUsers, toggleIsAdmin, deleteUser}

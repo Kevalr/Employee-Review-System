@@ -6,17 +6,21 @@ router.get("/", (req, res) => {
 });
 
 // user routes
-// ---- common routes -------------- //
 const userController = require("../controller/userController");
-router.get("/users/", userController.getUsersList);
+
+// authentication routes
 router.post("/users/register", userController.registerUser);
 router.post("/users/login", userController.loginUser);
-router.put("/users/changeUserStatus/:id", userController.changeUserStatus);
-router.delete("/users/delete/:id", userController.deleteUser);
 
-// review routes
+// review routes -- All Users Routes
 const reviewController = require("../controller/reviewController");
-// ---------- admin user routes ------------------- //
+
+// ------------------------------- admin user routes ------------------------------- //
+
+// user modules routes
+router.get("/users", userController.getUsersList);
+router.put("/users/changeUserStatus/:id", userController.changeUserStatus);
+router.delete("/users/:id", userController.deleteUser);
 
 // getting all reviews list for admin users
 router.get("/reviews", reviewController.getAllReviews);
@@ -30,7 +34,8 @@ router.put("/reviews/update/:id", reviewController.updateReview);
 // deleting reviews for admin users
 router.delete("/reviews/delete/:id", reviewController.deleteReview);
 
-// ---------- employess user routes ------------------- //
+
+// ------------------------------ employees user routes ------------------- //
 
 // getting reviews where reviewersId is used id for employees users
 router.get(
@@ -38,14 +43,10 @@ router.get(
   reviewController.getReviewsByUser
 );
 
-// giving and ypdating review for employees users
+// giving and updating review for employees users
 router.put(
   "/reviews/updateEmpReview/:id/:reviewerEmpId",
   reviewController.giveReviewToEmployees
 );
-
-// atyare aakhu review j update karai dav chu, pachi review ma jaine specific
-
-// employess routes
 
 module.exports = router;

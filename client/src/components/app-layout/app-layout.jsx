@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { isAdmin, isLoggedIn } from "../../utils/helper";
+import { isLoggedIn } from "../../utils/helper";
 import Path from "../../constants/local-path";
 import Sidebar from "./sidebar";
 import Header from "./header";

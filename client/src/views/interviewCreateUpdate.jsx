@@ -130,7 +130,9 @@ const InterviewCreateUpdate = () => {
   const studentSelect_Form_ID = "selectStudentForm";
 
   return (
-    <section className=" py-1 bg-blueGray-50">
+    <div
+      className={`backdrop-blur-sm bg-opacity-50 bg-black bg-transparent fixed z-40 overflow-y-auto top-0 w-full h-screen left-0 hidden: ${!isOpen}`}
+    >
       <div className="w-full lg:w-8/12 px-4 mx-auto mt-6">
         <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-slate-700 shadow- shadow-md rounded-lg bg-blueGray-100 border-0">
           <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -156,8 +158,6 @@ const InterviewCreateUpdate = () => {
                     <label className="block uppercase text-blueGray-600 text-sm font-bold mb-2">
                       Interview Date:{" "}
                     </label>
-                    
-                    
                   </div>
 
                   <div className="relative w-1/3 mb-3 self-end">
@@ -174,7 +174,7 @@ const InterviewCreateUpdate = () => {
                 <div className="flex justify-around w-full mt-5 ">
                   <button
                     type="button"
-                    className="border-2 w-1/3 font-bold px-6 py-2 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-lg mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                    className="border-2 w-1/3 px-6 py-2 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-lg mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
                     onClick={() => navigate(-1)}
                   >
                     Cancel
@@ -204,13 +204,12 @@ const InterviewCreateUpdate = () => {
                       (state.id ? "UPDATE" : "CREATE") + " INTERVIEW"
                     )}
                   </button>
-                  {/* </div> */}
                 </div>
               </div>
             </form>
           </div>
 
-          {isOpen && (
+          {/* {isOpen && (
             <StudentsModal
               isOpen={isOpen}
               onRequestClose={onRequestClose}
@@ -225,10 +224,10 @@ const InterviewCreateUpdate = () => {
                 formID={studentSelect_Form_ID}
               />
             </StudentsModal>
-          )}
+          )} */}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
