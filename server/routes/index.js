@@ -26,6 +26,9 @@ router.delete("/users/:id", userController.deleteUser);
 // getting all reviews list for admin users
 router.get("/reviews", reviewController.getAllReviews);
 
+// get review by id
+// router.get("/reviews/:id", reviewController.getReviewById);
+
 // creating reviews for admin users
 router.post("/reviews/create", reviewController.createReview);
 

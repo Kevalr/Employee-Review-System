@@ -75,21 +75,21 @@ const updateReview = async (req, res) => {
   }
 };
 
-const deleteReview =  (req, res) => {
+const deleteReview = (req, res) => {
   Review.findByIdAndDelete(req.params.id)
-  .then((review) => {
-    return res.status(200).json({
-      message: "Review Deleted Successfully",
-      data: review
+    .then((review) => {
+      return res.status(200).json({
+        message: "Review Deleted Successfully",
+        data: review,
+      });
     })
-  })
-  .catch((err) => {
-    console.log(err);
-    return res.status(500).json({
-      message: "Error while deleting review",
-    })
-  })
-}
+    .catch((err) => {
+      console.log(err);
+      return res.status(500).json({
+        message: "Error while deleting review",
+      });
+    });
+};
 
 // for employees to see and give reviews
 
@@ -124,21 +124,21 @@ const getReviewsByUser = async (req, res) => {
 
 const giveReviewToEmployees = (req, res) => {
   // First, find the review document by its ID
-  console.log(" 111111 ", req.params.id, "------- ", req.params.reviewerEmpId)
+  console.log(" 111111 ", req.params.id, "------- ", req.params.reviewerEmpId);
 
-    Review.findOneAndUpdate(
-      {
-        _id: req.params.id,
-        'reviewersList.reviewerEmpId': req.params.reviewerEmpId
+  Review.findOneAndUpdate(
+    {
+      _id: req.params.id,
+      "reviewersList.reviewerEmpId": req.params.reviewerEmpId,
+    },
+    {
+      $set: {
+        "reviewersList.$.ratings": 3,
+        "reviewersList.$.description": "Hello ratings",
       },
-      {
-        $set: {
-          'reviewersList.$.ratings': 3,
-          'reviewersList.$.description': "Hello ratings"
-        }
-      },
-      { new: true }
-    )
+    },
+    { new: true }
+  )
     .then((updatedReview) => {
       // Updated review
       return res.status(200).json({
@@ -160,5 +160,5 @@ module.exports = {
   updateReview,
   deleteReview,
   getReviewsByUser,
-  giveReviewToEmployees
+  giveReviewToEmployees,
 };

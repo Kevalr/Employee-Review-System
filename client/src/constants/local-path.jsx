@@ -1,5 +1,7 @@
 import Login from "../components/login-form";
 import Register from "../components/sign-up-form";
+import GiveReviews from "../views/GiveReviews";
+import Reviews from "../views/Reviews";
 import Users from "../views/Users";
 
 
@@ -38,13 +40,13 @@ const ProtectedRoutes = [
     adminOnly: true,
   },
   {
-    element: <>Review List</>,
+    element: <Reviews />,
     path: Path.Reviews,
     name: "Reviews",
     adminOnly: true,
   },
   {
-    element: <>Pending Reviews</>,
+    element: <GiveReviews />,
     path: Path.GiveReviews,
     name: "Reviews",
     adminOnly: false,
