@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import { removeSession } from "../utils/helper";
 
-const baseURL = "http://localhost:3100";
+const baseURL = "https://employee-review-system-server.vercel.app/";
 // const baseURL = "http://localhost:3500/";
 
 const axiosClient = axios.create({
