@@ -4,6 +4,7 @@ import {
   deleteReview,
   getAllReviews,
   getReviewsByReviewerId,
+  giveReviewToEmplyoess,
   // getReviewById,
   updateReview,
 } from "../services/reviews";
@@ -17,3 +18,5 @@ export const useUpdateReview = () => useMutation(updateReview);
 export const useDeleteReview = () => useMutation(deleteReview);
 
 export const useGetReviewsByReviewerId = (id) => useQuery(["reviews",id],getReviewsByReviewerId);
+
+export const useGiveReviewToEmplyoess = () => useMutation(giveReviewToEmplyoess);

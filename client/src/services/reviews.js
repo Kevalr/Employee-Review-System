@@ -11,3 +11,5 @@ export const updateReview = (payload) =>
 export const deleteReview = (id) => axiosClient.delete(`/reviews/delete/${id}`);
 
 export const getReviewsByReviewerId = ({queryKey}) => axiosClient.get(`/reviews/getReviewsByReviewerId/${queryKey[1]}`) 
+
+export const giveReviewToEmplyoess = (payload) => axiosClient.put(`/reviews/updateEmpReview/${payload.id}/${payload.reviewerEmpId}`, {payload})

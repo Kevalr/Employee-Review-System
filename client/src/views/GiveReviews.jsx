@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useGetReviewsByReviewerId } from "../hooks/reviews";
 import { getUser } from "../utils/helper";
 import Loader from "../components/common/Loader";
+import useModal from "../hooks/use-modal";
+import ReviewCreateUpdateForm from "./ReviewCreateUpdateForm";
+import ReviewModal from "./ReviewModal";
 
 const GiveReviews = () => {
   const user = getUser();
@@ -10,11 +13,15 @@ const GiveReviews = () => {
 
   const [userReviews, setUserReviews] = useState([]);
 
+  const { isOpen, openModal, onRequestClose } = useModal();
+
   useEffect(() => {
-    if (userAssignedReviews?.data.length > 0) {
+    if (userAssignedReviews?.data?.length > 0) {
       setUserReviews(userAssignedReviews?.data);
     }
   }, [userAssignedReviews]);
+
+  const [selectedReview, setSelectedReview] = useState(null);
 
   // mare khali ratings and description j send karvana che backend ma ae automatically api mathi review-id mathi review goti leshe and aemathi reviwerslist.reviwerEmpid mathi ae j reviwer na data change karshe
 
@@ -50,7 +57,7 @@ const GiveReviews = () => {
                   </tr>
                 </thead>
                 <tbody className="text-lg">
-                  {userReviews.length > 0 &&
+                  {userReviews?.length > 0 &&
                     userReviews.map((review, index) => (
                       <tr key={review._id}>
                         <td>{index + 1}</td>
@@ -60,7 +67,17 @@ const GiveReviews = () => {
                         <td>{review.reviewedEmpId?.email}</td>
                         <td>{review.reviewedEmpId?.dept}</td>
                         <td>
-                          <button className="px-4 py-1.5 my-1 bg-blue-300 rounded-md font-medium">
+                          <button
+                            className="px-4 py-1.5 my-1 bg-blue-300 rounded-md font-medium"
+                            onClick={() => {
+                              setSelectedReview({
+                                userId: user.id,
+                                reviewId: review._id,
+                                reviewedUser: review?.reviewedEmpId,
+                              })
+                              openModal();
+                            }}
+                          >
                             Give Review
                           </button>
                         </td>
@@ -72,16 +89,15 @@ const GiveReviews = () => {
           </div>
         </div>
       </div>
-      {/* {isOpen && (
-        <ReviewCreateUpdateForm
+      {isOpen && (
+        <ReviewModal
           reviewDetails={selectedReview}
           setSelectedReview={setSelectedReview}
           onRequestClose={onRequestClose}
           isOpen={isOpen}
         />
-      )} */}
+      )}
     </div>
-
   );
 };
 
