@@ -46,7 +46,8 @@ axiosClient.interceptors.response.use(
     } else if (status === 403) {
       toast.error("You don't have permission to perform this action");
     } else if (status === 404) {
-      toast.error("Invalid Password");
+      // toast.error("Invalid Password");
+      toast.error("Resource Not Found");
     } else if (status === 409) {
       toast.error("User with this e-mail is Already exists");
     } else {

@@ -14,3 +14,5 @@ export const getSession = () =>
 export const removeSession = () => localStorage.removeItem("session");
 
 export const isAdmin = () => JSON.parse(localStorage.getItem("session"))?.user?.isAdmin ?? false;
+
+export const getUser = () => JSON.parse(localStorage.getItem("session"))?.user ?? null;

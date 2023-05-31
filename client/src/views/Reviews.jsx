@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDeleteUser } from "../hooks/users";
 import Loader from "../components/common/Loader";
 import { invalidateQuery } from "../config/react-query-client";
 import { toast } from "react-toastify";

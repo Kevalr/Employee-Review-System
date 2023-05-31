@@ -133,8 +133,8 @@ const giveReviewToEmployees = (req, res) => {
     },
     {
       $set: {
-        "reviewersList.$.ratings": 3,
-        "reviewersList.$.description": "Hello ratings",
+        "reviewersList.$.ratings": req.body.ratings ?? 0,
+        "reviewersList.$.description": req.body.description ?? '',
       },
     },
     { new: true }

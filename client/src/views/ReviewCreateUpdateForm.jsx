@@ -22,7 +22,6 @@ const ReviewCreateUpdateForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm({
     defaultValues : {
       reviewedEmpId: reviewDetails?.reviewedEmpId?._id,

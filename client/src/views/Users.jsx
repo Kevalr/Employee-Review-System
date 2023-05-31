@@ -26,7 +26,7 @@ const Users = () => {
 
   const toggleAdmin = (id, isAdmin) => {
     toggleAdminStatus(id, { onSuccess: () => {
-        toast.success(isAdmin ? "Admin Rights Revoked Successfully" : "Admin Rights Revoked Successfully");
+        toast.success(isAdmin ? "Admin Rights Revoked Successfully" : "Admin Rights Given Successfully");
         invalidateQuery("users");
     } });
   };
