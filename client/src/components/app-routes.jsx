@@ -23,7 +23,8 @@ const AppRoutes = () => (
         // ) : (
         //   <Route key={itm.path} element={itm.element} path={itm.path} />
         // );
-        return itm.adminOnly ? isAdmin() && <Route key={itm.path} element={itm.element} path={itm.path} /> : <Route key={itm.path} element={itm.element} path={itm.path} />
+        // return itm.adminOnly ? isAdmin() && <Route key={itm.path} element={itm.element} path={itm.path} /> : <Route key={itm.path} element={itm.element} path={itm.path} />
+        <Route key={itm.path} element={itm.element} path={itm.path} />
       })}
     </Route>
 
