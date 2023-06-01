@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { isLoggedIn } from "../utils/helper";
 
-import Path from "../constants/local-path";
-
-import { isAdmin, isLoggedIn } from "../utils/helper";
 
 const NotFound = () => {
   const navigate = useNavigate();
@@ -17,7 +15,8 @@ const NotFound = () => {
         <div className="text-center">
           <button
             type="button"
-            onClick={() => navigate(isLoggedIn() ? ( isAdmin() ? "/users" : "/give-reviews" ) : "/")}
+            onClick={() => navigate( isLoggedIn ? "/give-reviews" : "/login")}
+            // onClick={() => navigate(Boolean(isLoggedIn()) ? ( isAdmin() ? "/users" : "/give-reviews" ) : "/")}
             className="text-white bg-[#050708] hover:bg-[#050708]/80 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2"
           >
             Go Back
