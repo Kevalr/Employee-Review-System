@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-
 import Path, { ProtectedRoutes, PublicRoutes } from "../constants/local-path";
-
 import { HomeRoute, ProtectedRoute } from "./app-layout/app-layout";
 import NotFound from "./not-found";
 import { AdminContext } from "../Context";
-import { isAdmin } from "../utils/helper";
 
 const AppRoutes = () => {
   const [isUserAdmin, setIsUserAdmin] = useContext(AdminContext);
@@ -23,7 +20,7 @@ const AppRoutes = () => {
 
           if(itm.adminOnly) {
             // return isUserAdmin ? <Route key={itm.path} element={itm.element} path={itm.path} /> : null
-            if(isAdmin()) alert("this is from admin only route after setting is admin true")
+            // if(isAdmin()) alert("this is from admin only route after setting is admin true")
             return isUserAdmin ? <Route key={itm.path} element={itm.element} path={itm.path} /> : null
           } else {
             return <Route key={itm.path} element={itm.element} path={itm.path} />

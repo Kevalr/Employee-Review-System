@@ -3,7 +3,6 @@ import { useGetReviewsByReviewerId } from "../hooks/reviews";
 import { getUser } from "../utils/helper";
 import Loader from "../components/common/Loader";
 import useModal from "../hooks/use-modal";
-import ReviewCreateUpdateForm from "./ReviewCreateUpdateForm";
 import ReviewModal from "./ReviewModal";
 
 const GiveReviews = () => {

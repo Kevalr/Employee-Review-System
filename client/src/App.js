@@ -3,9 +3,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React, { Suspense, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
-
 import reactQueryClient from "./config/react-query-client";
 import Loader from "./components/common/Loader";
 import AppRoutes from "./components/app-routes";
