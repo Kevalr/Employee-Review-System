@@ -25,29 +25,3 @@ const App = () => {
 };
 
 export default App;
-// import { useEffect } from "react";
-// import "./App.css";
-// import axios from "axios";
-
-// function App() {
-//   useEffect(() => {
-//     fetchData("/");
-//   }, []);
-
-//   async function fetchData(endPoint) {
-//     const data = await axios.get(
-//       `https://placement-cell-zeta.vercel.app${endPoint}`
-//     );
-//     console.log(data);
-//   }
-
-//   return (
-//     <div className="App">
-//       <h1>Hello World</h1>
-//       <button onClick={() => fetchData("/students")}>students</button>
-//       <button onClick={() => fetchData("/interviews")}>interviews</button>
-//     </div>
-//   );
-// }
-
-// export default App;

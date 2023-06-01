@@ -124,6 +124,13 @@ const Login = () => {
             </form>
           </div>
         </div>
+        { 
+           <div className="absolute top-10 left-[42%] text-xl text-center text-gray-700">
+            <p>For Testing By Other Users</p>
+            <p>Admin Email :- test@gmail.com</p>
+            <p>Admin Password :- 1234</p>
+          </div> 
+          }
       </div>
     </>
   );
